@@ -1,15 +1,32 @@
 import React, { PropTypes } from 'react';
 import TodoListItem from './todo_list_item';
 import TodoForm from './todo_form';
+import {todoUtil} from "../../util/todo_api_util";
+
 class TodoList extends React.Component {
   constructor(props) {
     super(props);
-    this.deleteTodo = this.deleteTodo.bind(this);
+    this.deletesTodo = this.deletesTodo.bind(this);
+    this.logSomething = this.logSomething.bind(this);
   }
 
-  deleteTodo(todo, e) {
-    console.log(this);
-    this.props.removeTodo(todo);
+  componentDidMount() {
+    this.props.fetchTodos();
+  }
+
+  deletesTodo(todo, e) {
+    console.log("HERERE");
+    console.log(todo);
+    this.props.deleteTodo(todo);
+  }
+
+  updateTodo(todo, e) {
+    this.props.updateTodo(todo);
+  }
+
+  logSomething(e) {
+    console.log(e.target);
+    console.log("here");
   }
 
   render () {
@@ -19,11 +36,13 @@ class TodoList extends React.Component {
         <ul>
           {
             this.props.todos.map((todo, i) => (
-              <li key={i}><TodoListItem todo={todo} />
-                // <form>
-                //   <button onSubmit={this.deleteTodo(todo)}>Delete</button>
-                // </form>
-              </li>
+              <div key={i}>
+                <li>
+                  <TodoListItem todo={todo} />
+                </li>
+                <button onClick={this.updateTodo.bind(this, todo)}>Update</button>
+                <button onClick={this.deletesTodo.bind(this, todo)}>Delete</button>
+              </div>
             ))
           }
         </ul>

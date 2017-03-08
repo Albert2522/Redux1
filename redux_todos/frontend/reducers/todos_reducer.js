@@ -1,25 +1,11 @@
 import { RECEIVE_TODO } from '../actions/todo_actions.js';
 import { RECEIVE_TODOS } from '../actions/todo_actions.js';
 import { REMOVE_TODO } from '../actions/todo_actions.js';
+import { FETCH_TODOS } from '../actions/todo_actions.js';
 
 import merge from 'lodash/merge';
 
-const initialState = {
-  1: {
-    id: 1,
-    title: "wash car",
-    body: "with soap",
-    done: false
-  },
-  2: {
-    id: 2,
-    title: "wash dog",
-    body: "with shampoo",
-    done: true
-  },
-};
-
-const todosReducer = (state = initialState, action) => {
+const todosReducer = (state = {}, action) => {
   Object.freeze(state);
   switch(action.type) {
     case RECEIVE_TODO:
@@ -36,6 +22,8 @@ const todosReducer = (state = initialState, action) => {
       let removeState = merge({}, state);
       delete removeState[action.todo.id];
       return removeState;
+    case FETCH_TODOS:
+      console.log('asdf');
     default:
       return state;
   }

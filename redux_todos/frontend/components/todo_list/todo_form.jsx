@@ -16,15 +16,16 @@ class TodoForm extends React.Component {
   handleSubmit(e){
     e.preventDefault();
     var index = new Date().getTime();
-    this.props.props.receiveTodo({title: this.state.todo.title, id: index});
-    this.setState({todo: { title: ""}});
+    let todo = {title: this.state.todo.title, id: index, body: "asdf", done: false};
+    this.props.props.createTodo({todo}).then(
+    this.setState({title: "", body: "", done: "",})).fail( (data) => ( alert(data.errors)));
   }
   render() {
     return (
       <div className='content'>
         <h2>Todo Item!</h2>
         <form onSubmit={this.handleSubmit}>
-          <input
+          Title <input
             type='text'
             onChange={this.update}
             value={this.state.todo.title}

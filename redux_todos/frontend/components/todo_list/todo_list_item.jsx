@@ -13,7 +13,6 @@ class TodoListItem extends React.Component {
       <div>
         {this.props.todo.title}
       </div>
-
     );
   }
 }
